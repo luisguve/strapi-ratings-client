@@ -54,19 +54,24 @@ const Reviews = () => {
         :
           (reviews.length > 0 || userReview) ?
             <Stack size={3}>
-              <Stack size={1}>
-                <Typography variant="beta">
-                  Average rating: {averageScore}/5 ({reviewsCount} {reviewsCount > 1 ? "reviews" : "review"})
-                </Typography>
+              <Box>
+                <Box>
+                  <Typography variant="beta">
+                    Average rating: {averageScore}/5 ({reviewsCount} {reviewsCount > 1 ? "reviews" : "review"})
+                  </Typography>
+                </Box>
                 <ReactStarsRating
                   isEdit={false}
                   isHalf={true}
                   value={averageScore}
                   isArrowSubmit={false}
+                  size={28}
                 />
-              </Stack>
-              {userReviewJSX}
-              {reviewsJSX}
+              </Box>
+              <Box>
+                {userReviewJSX}
+                {reviewsJSX}
+              </Box>
               {
                 (
                   (reviews.length > 0) &&

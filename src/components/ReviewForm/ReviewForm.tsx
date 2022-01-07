@@ -42,11 +42,14 @@ const ReviewForm = (props: ReviewFormProps) => {
             <Box paddingTop={3} paddingBottom={3}>
               <Typography variant="beta">{props.label || "Post a review"}</Typography>
               <Box paddingBottom={2}>
-                <Typography variant="omega">Your score: {score}/5</Typography>
+                <Box>
+                  <Typography variant="omega">Your score: {score}/5</Typography>
+                </Box>
                 <ReactStarsRating
                   isEdit={true}
                   isHalf={false}
                   value={score}
+                  size={22}
                   onChange={handleInputScore}
                 />
               </Box>

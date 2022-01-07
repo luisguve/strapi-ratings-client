@@ -31,15 +31,18 @@ const Review = ({ data }: ReviewProps) => {
           isHalf={true}
           value={data.score}
           isArrowSubmit={false}
+          size={22}
         />
       </Box>
       {
         data.comment && 
-        <Box background="neutral0" borderColor="neutral200" hasRadius={true} padding={6}>
-          <Typography>
-            {data.comment}
-          </Typography>
-        </Box>
+        <Stack horizontal size={0}>
+          <Box background="neutral0" borderColor="neutral200" hasRadius={true} padding={6}>
+              <Typography>
+                {data.comment}
+              </Typography>
+          </Box>
+        </Stack>
       }
     </Box>
   )
