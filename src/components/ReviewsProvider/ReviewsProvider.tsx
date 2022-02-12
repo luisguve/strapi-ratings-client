@@ -5,10 +5,10 @@ import { lightTheme } from "@strapi/design-system/themes"
 export interface IAuthor {
   username: string,
   email: string,
-  id: string
+  id: number
 }
 export interface IReview {
-  id: string,
+  id: number,
   createdAt: string,
   comment: string | null,
   author: IAuthor | null,
@@ -21,7 +21,7 @@ export interface IReviewsData {
   reviews: IReview[]
 }
 export interface IUser {
-  id: string,
+  id: number,
   token: string,
   username: string,
   email: string
@@ -37,17 +37,20 @@ interface ICoreContext {
   userReview: IReview | null,
   averageScore: number,
   loadingReviews: boolean,
+  canPostReview: boolean,
   errorHelperMessage: string | null,
   setContentID: (contentID: string) => void,
+  setCanPostReview: (canPostReview: boolean) => void,
   loadMore: () => Promise<void>,
   apiURL: string,
   user: IUser | null,
-  setUser: (user: IUser) => void,
+  setUser: (user: IUser| null) => void,
   postReview: (content: string, score: number) => Promise<boolean>
 }
 export interface IConfigContext {
-  setUser: (user: IUser) => void,
-  setContentID: (contentID: string) => void
+  setUser: (user: IUser| null) => void,
+  setContentID: (contentID: string) => void,
+  setCanPostReview: (canPostReview: boolean) => void
 }
 
 const defaultContext: ICoreContext = {
@@ -56,18 +59,21 @@ const defaultContext: ICoreContext = {
   userReview: null,
   averageScore: 0,
   loadingReviews: true,
+  canPostReview: false,
   errorHelperMessage: null,
   setContentID: (contentID: string) => {},
+  setCanPostReview: (canPostReview: boolean) => {},
   loadMore: async () => { return new Promise<void>(resolve => resolve()) },
   apiURL: "",
   user: null,
-  setUser: (user: IUser) => {},
+  setUser: (user: IUser | null) => {},
   postReview: (content: string, score: number) => { return new Promise<boolean>(resolve => resolve(true)) }
 }
 
 const defaultConfig: IConfigContext = {
-  setUser: (user: IUser) => {},
-  setContentID: (contentID: string) => {}
+  setUser: (user: IUser | null) => {},
+  setContentID: (contentID: string) => {},
+  setCanPostReview: (canPostReview: boolean) => {}
 }
 
 const CoreContext = createContext(defaultContext)
@@ -78,10 +84,10 @@ interface ConfigProviderProps {
 }
 
 const ConfigProvider: FC<ConfigProviderProps> = (props: ConfigProviderProps) => {
-  const { setUser, setContentID } = useContext(CoreContext)
+  const { setUser, setContentID, setCanPostReview } = useContext(CoreContext)
   return (
     <ConfigContext.Provider value={
-      {setUser, setContentID}
+      {setUser, setContentID, setCanPostReview}
     }>
       {props.children}
     </ConfigContext.Provider>
@@ -102,6 +108,7 @@ export const ReviewsProvider: FC<ProviderProps> = (props: ProviderProps) => {
     userReview: null
   })
   const [user, setUser] = useState<IUser | null>(null)
+  const [canPostReview, setCanPostReview] = useState<boolean>(false)
   const [loadingReviews, setLoadingReviews] = useState(true)
   const [errorHelperMessage, setErrorHelperMessage] = useState<string | null>(null)
   const [contentID, setContentID] = useState<string>(props.contentID || "")
@@ -181,7 +188,7 @@ export const ReviewsProvider: FC<ProviderProps> = (props: ProviderProps) => {
       setErrorHelperMessage("Something went wrong. Please see console")
     }
   }
-  const addUserReview = (comment: string, score: number, reviewID: string) => {
+  const addUserReview = (comment: string, score: number, reviewID: number) => {
     const newReview: IReview = {
       id: reviewID,
       comment,
@@ -200,7 +207,7 @@ export const ReviewsProvider: FC<ProviderProps> = (props: ProviderProps) => {
     })
   }
   const postReview = async (comment: string, score: number) => {
-    if (!user || !user.token) {
+    if (!user || !user.token || !canPostReview) {
       return false
     }
     try {
@@ -237,6 +244,8 @@ export const ReviewsProvider: FC<ProviderProps> = (props: ProviderProps) => {
           ...reviewsData,
           apiURL: props.apiURL,
           setContentID,
+          setCanPostReview,
+          canPostReview,
           loadingReviews,
           errorHelperMessage,
           loadMore,
