@@ -12,7 +12,7 @@ export interface ReviewFormProps {
 }
 
 const ReviewForm = (props: ReviewFormProps) => {
-  const { user, userReview, postReview } = useContext(ReviewsContext)
+  const { user, userReview, postReview, canPostReview } = useContext(ReviewsContext)
   const [comment, setComment] = useState("")
   const [score, setScore] = useState(5)
   const [sending, setSending] = useState(false)
@@ -34,6 +34,10 @@ const ReviewForm = (props: ReviewFormProps) => {
         !user?
           <Box paddingTop={3} paddingBottom={3}>
             <Typography variant="beta">Login to post a review</Typography>
+          </Box>
+        : !canPostReview ?
+          <Box paddingTop={3} paddingBottom={3}>
+            <Typography variant="beta">Purchase this item to post a review</Typography>
           </Box>
         : userReview?
             null
