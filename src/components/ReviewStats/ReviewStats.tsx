@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import styled from "styled-components"
 import ReactStarsRating from 'react-awesome-stars-rating';
 
 interface IStats {
@@ -15,13 +14,6 @@ interface ReviewStatsProps {
   slug: string;
   apiURL: string;
 }
-const HorizontalStack = styled.div`
-  display:flex;
-`
-const MarginRightDiv = styled.div`
-  margin-right: 5px;
-`
-
 const ReviewStats = (props: ReviewStatsProps) => {
   const { apiURL, slug } = props
   const [stats, setStats] = useState<IStats>(defaultStatsState)
@@ -47,25 +39,23 @@ const ReviewStats = (props: ReviewStatsProps) => {
     fetchStats()
   }, [])
   return (
-    <div>
-      <HorizontalStack>
-        <MarginRightDiv>
-          <ReactStarsRating
-            isEdit={false}
-            isHalf={true}
-            value={stats.averageScore}
-            isArrowSubmit={false}
-            size={28}
-          />
-        </MarginRightDiv>
-        <p style={{margin: 0}}>
-          {
-            (stats.reviewsCount === null) ?
-              "loading reviews"
-            : "("+stats.reviewsCount + (stats.reviewsCount > 1 ? " reviews" : " review")+")"
-          }
-        </p>
-      </HorizontalStack>
+    <div className="d-flex">
+      <div>
+        <ReactStarsRating
+          isEdit={false}
+          isHalf={true}
+          value={stats.averageScore}
+          isArrowSubmit={false}
+          size={28}
+        />
+      </div>
+      <p className="ms-2 mb-0 d-flex align-items-end" style={{margin: 0}}>
+        {
+          (stats.reviewsCount === null) ?
+            "loading reviews"
+          : "("+stats.reviewsCount + (stats.reviewsCount > 1 ? " reviews" : " review")+")"
+        }
+      </p>
     </div>
   )
 }

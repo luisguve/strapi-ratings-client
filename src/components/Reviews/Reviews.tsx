@@ -1,8 +1,4 @@
 import React, { useContext, useState, useEffect } from "react"
-import { Stack } from "@strapi/design-system/Stack"
-import { Box } from "@strapi/design-system/Box"
-import { Typography } from "@strapi/design-system/Typography"
-import { Button } from "@strapi/design-system/Button"
 import ReactStarsRating from 'react-awesome-stars-rating';
 
 import Review from "../Review"
@@ -19,7 +15,7 @@ const Reviews = () => {
   } = useContext(ReviewsContext)
   const [loadingMore, setLoadingMore] = useState(false)
   const [reviewsJSX, setReviewsJSX] = useState<React.ReactNode[] | null>(null)
-  const [userReviewJSX, setUserReviewJSX] = useState<React.ReactNode | null>(null)
+  const [userReviewJSX, setUserReviewJSX] = useState<React.ReactNode>(null)
   useEffect(() => {
     setReviewsJSX(reviews.map(review => {
       return (
@@ -30,12 +26,10 @@ const Reviews = () => {
   useEffect(() => {
     if (userReview) {
       setUserReviewJSX(
-        <Box>
-          <Stack size={2}>
-            <Typography variant="beta">Your review:</Typography>
-            <Review data={userReview} />
-          </Stack>
-        </Box>
+        <div className="d-flex flex-column">
+          <p className="fw-bold mb-1">Your review:</p>
+          <Review data={userReview} />
+        </div>
       )
     }
   }, [userReview])
@@ -45,21 +39,21 @@ const Reviews = () => {
     setLoadingMore(false)
   }
   return (
-    <Box>
+    <div>
       {
         loadingReviews ?
-          <Typography variant="beta">
-            Loading Reviews...
-          </Typography>
+          <p className="small fs-6">
+            Loading reviews...
+          </p>
         :
           (reviews.length > 0 || userReview) ?
-            <Stack size={3}>
-              <Box>
-                <Box>
-                  <Typography variant="beta">
-                    Average rating: {averageScore}/5 ({reviewsCount} {reviewsCount > 1 ? "reviews" : "review"})
-                  </Typography>
-                </Box>
+            <div className="d-flex flex-column">
+              <div className="mb-3">
+                <div>
+                  <p className="mb-0 small">
+                    Average rating: {averageScore}/5 ({reviewsCount} review{reviewsCount === 1 ? "" : "s"})
+                  </p>
+                </div>
                 <ReactStarsRating
                   isEdit={false}
                   isHalf={true}
@@ -67,26 +61,26 @@ const Reviews = () => {
                   isArrowSubmit={false}
                   size={28}
                 />
-              </Box>
-              <Box>
+              </div>
+              <div>
                 {userReviewJSX}
                 {reviewsJSX}
-              </Box>
+              </div>
               {
                 (
                   (reviews.length > 0) &&
                   (reviews.length < reviewsCount)
                 ) &&
-                <Button
-                  variant="secondary"
+                <button
+                  className="btn btn-primary"
                   onClick={loadMoreReviews}
-                  loading={loadingMore ? true : false}
-                >Load more reviews</Button>
+                  disabled={loadingMore ? true : undefined}
+                >Load more reviews</button>
               }
-            </Stack>
-          : <Typography variant="beta">There are no reviews</Typography>
+            </div>
+          : <p className="small fs-6">There are no reviews</p>
       }
-    </Box>
+    </div>
   )
 }
 

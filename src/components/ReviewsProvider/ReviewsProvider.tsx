@@ -1,6 +1,4 @@
 import React, { useState, useEffect, createContext, useContext, FC } from "react"
-import { ThemeProvider } from "@strapi/design-system/ThemeProvider"
-import { lightTheme } from "@strapi/design-system/themes"
 
 export interface IAuthor {
   username: string,
@@ -124,6 +122,9 @@ export const ReviewsProvider: FC<ProviderProps> = (props: ProviderProps) => {
       try {
         const res = await fetch(url, options)
         const data: IReviewsData = await res.json()
+        if (!res.ok) {
+          throw data
+        }
         setReviewsData(data)
         setErrorHelperMessage(null)
       } catch(err) {
@@ -151,6 +152,9 @@ export const ReviewsProvider: FC<ProviderProps> = (props: ProviderProps) => {
       try {
         const res = await fetch(url, options)
         const data: ICheckUserData = await res.json()
+        if (!res.ok) {
+          throw data
+        }
         setReviewsData((prev: IReviewsData) => {
           let newReviewList = prev.reviews
           if (data.review) {
@@ -178,6 +182,9 @@ export const ReviewsProvider: FC<ProviderProps> = (props: ProviderProps) => {
     try {
       const res = await fetch(url)
       const data: IReviewsData = await res.json()
+      if (!res.ok) {
+        throw data
+      }
       setReviewsData({
         ...reviewsData,
         reviews: reviewsData.reviews.concat(data.reviews)
@@ -238,27 +245,25 @@ export const ReviewsProvider: FC<ProviderProps> = (props: ProviderProps) => {
     }
   }
   return (
-    <ThemeProvider theme={lightTheme}>
-      <CoreContext.Provider value={
-        {
-          ...reviewsData,
-          apiURL: props.apiURL,
-          setContentID,
-          setCanPostReview,
-          canPostReview,
-          loadingReviews,
-          errorHelperMessage,
-          loadMore,
-          postReview,
-          user,
-          setUser
-        }
-      }>
-        <ConfigProvider>
-          {props.children}
-        </ConfigProvider>
-      </CoreContext.Provider>
-    </ThemeProvider>
+    <CoreContext.Provider value={
+      {
+        ...reviewsData,
+        apiURL: props.apiURL,
+        setContentID,
+        setCanPostReview,
+        canPostReview,
+        loadingReviews,
+        errorHelperMessage,
+        loadMore,
+        postReview,
+        user,
+        setUser
+      }
+    }>
+      <ConfigProvider>
+        {props.children}
+      </ConfigProvider>
+    </CoreContext.Provider>
   )
 }
 

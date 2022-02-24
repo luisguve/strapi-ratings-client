@@ -1,6 +1,6 @@
 # Strapi Ratings Client
 
-Display reviews from the [Strapi Ratings plugin](https://npmjs.com/package/strapi-plugin-ratings) easily, with components from the [Strapi Design System](https://design-system-alpha.vercel.app) introduced in [Strapi V4](https://strapi.io/blog/announcing-strapi-v4).
+Display reviews from the [Strapi Ratings plugin](https://npmjs.com/package/strapi-plugin-ratings) easily, with components built from [Bootstrap](https://getbootstrap.com).
 
 This component library fully supports Typescript.
 

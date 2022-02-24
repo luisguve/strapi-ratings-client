@@ -1,9 +1,4 @@
 import React, { useState, useEffect, useContext } from "react"
-import { Stack } from '@strapi/design-system/Stack';
-import { Textarea } from '@strapi/design-system/Textarea';
-import { Button } from '@strapi/design-system/Button';
-import { Box } from "@strapi/design-system/Box"
-import { Typography } from '@strapi/design-system/Typography';
 import ReactStarsRating from 'react-awesome-stars-rating';
 
 import ReviewsContext, { IReview } from "../ReviewsProvider"
@@ -16,16 +11,16 @@ export interface ReviewProps {
 const Review = ({ data }: ReviewProps) => {
   const { user } = useContext(ReviewsContext)
   return (
-    <Box paddingBottom={2}>
-      <Box paddingBottom={2}>
-        <Stack horizontal size={2}>
-          <Typography fontWeight="bold">
+    <div className="pb-1">
+      <div className="pb-1">
+        <div className="d-flex">
+          <p className="fw-bold mb-0">
             {data.author ? data.author.username : "User"}
-          </Typography>
-          <Typography>
+          </p>
+          <p className="ms-2 mb-0">
             {"\t"} on {ISOToFull(data.createdAt)}
-          </Typography>
-        </Stack>
+          </p>
+        </div>
         <ReactStarsRating
           isEdit={false}
           isHalf={true}
@@ -33,18 +28,17 @@ const Review = ({ data }: ReviewProps) => {
           isArrowSubmit={false}
           size={22}
         />
-      </Box>
+      </div>
       {
-        data.comment && 
-        <Stack horizontal size={0}>
-          <Box background="neutral0" borderColor="neutral200" hasRadius={true} padding={6}>
-              <Typography>
-                {data.comment}
-              </Typography>
-          </Box>
-        </Stack>
+        data.comment && (
+          <div className="p-3 border rounded">
+            <p className="mb-0">
+              {data.comment}
+            </p>
+          </div>
+        )
       }
-    </Box>
+    </div>
   )
 }
 
