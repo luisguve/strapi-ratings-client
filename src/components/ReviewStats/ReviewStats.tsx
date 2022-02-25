@@ -53,7 +53,7 @@ const ReviewStats = (props: ReviewStatsProps) => {
         {
           (stats.reviewsCount === null) ?
             "loading reviews"
-          : "("+stats.reviewsCount + "review"+(stats.reviewsCount !== 1 ? "s" : "")+")"
+          : "("+stats.reviewsCount + " review"+(stats.reviewsCount !== 1 ? "s" : "")+")"
         }
       </p>
     </div>
