@@ -125,7 +125,15 @@ export const ReviewsProvider: FC<ProviderProps> = (props: ProviderProps) => {
         if (!res.ok) {
           throw data
         }
-        setReviewsData(data)
+        setReviewsData((prev: IReviewsData) => {
+          if (prev.userReview !== null) {
+            data.userReview = prev.userReview
+            data.reviews = data.reviews.filter(r => {
+              return (prev.userReview !== null) && (r.id !== prev.userReview.id)
+            })
+          }
+          return data
+        })
         setErrorHelperMessage(null)
       } catch(err) {
         console.log(err)
