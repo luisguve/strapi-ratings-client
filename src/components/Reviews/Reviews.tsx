@@ -69,7 +69,7 @@ const Reviews = () => {
               {
                 (
                   (reviews.length > 0) &&
-                  (reviews.length < reviewsCount)
+                  (reviews.length < (userReview ? reviewsCount-1 : reviewsCount))
                 ) &&
                 <button
                   className="btn btn-primary"
