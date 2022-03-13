@@ -156,12 +156,9 @@ export const ReviewsProvider: FC<ProviderProps> = (props: ProviderProps) => {
           throw data
         }
         setReviewsData((prev: IReviewsData) => {
-          let newReviewList = prev.reviews
-          if (data.review) {
-            newReviewList = prev.reviews.filter(r => {
-              return (data.review !== null) && (r.id !== data.review.id)
-            })
-          }
+          let newReviewList = prev.reviews.filter(r => {
+            return (data.review !== null) && (r.id !== data.review.id)
+          })
           return {
             ...prev,
             reviews: newReviewList,
