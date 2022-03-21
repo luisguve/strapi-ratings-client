@@ -11,7 +11,7 @@ export interface ReviewProps {
 const Review = ({ data }: ReviewProps) => {
   const { user } = useContext(ReviewsContext)
   return (
-    <div className="pb-1">
+    <div className="pb-1 d-flex flex-column align-items-start">
       <div className="pb-1">
         <div className="d-flex">
           <p className="fw-bold mb-0">
