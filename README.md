@@ -6,7 +6,7 @@ This component library fully supports Typescript.
 
 ## Installation
 
-This library requires **react ^17.0.2**, **react-dom ^17.0.2** and **react-router-dom ^5.2.0**.
+This library requires **react ^17.0.2**, **react-dom ^17.0.2** **bootstrap ^5.1.3** and **@popperjs/core^2.11.2**.
 
     npm install strapi-ratings-client --save
 
@@ -42,7 +42,9 @@ ReactDOM.render(
 
 `apiURL` is the URL of your running Strapi application and this property is *required*.
 
-Then you can place the `Reviews` component anywhere in your app to load and render the reviews and `ReviewForm` to render a input for posting reviews.
+You can place the `Reviews` component anywhere in your app to load and render the reviews and `ReviewForm` to render a input for posting reviews.
+
+The only requirement is that the component that renders `Reviews` and `ReviewForm` *must* be nested into the provider. In the example above, `App` can render `Reviews` and `ReviewForm`, but if the `ReviewsProvider` is rendered in `App`, this component would not be able to render `Reviews` and `ReviewForm`.
 
 Here's how the interface looks like:
 
@@ -68,13 +70,17 @@ interface IUser {
 }
 ```
 
-There's one more component that this library exports: `ErrorBox`
+There are two more components that this library exports: `ReviewStats` and `ErrorBox`
 
 ```ts
-import { ErrorBox } from "strapi-ratings-client"
+import { ErrorBox, ReviewStats } from "strapi-ratings-client"
 ```
 
-All it does is display error messages when fetching or posting reviews fail.
+`ReviewStats` displays the average score as well as the number of total reviews for a given content. This component requires a `slug: string` and `apiURL: string`. This component also doesn't need to be nested inside of `ReviewsProvider`.
+
+![Review Stats](https://raw.githubusercontent.com/luisguve/strapi-ratings-client/main/stats.PNG)
+
+`ErrorBox` displays an error message when fetching or posting reviews fail.
 
 ![Comment error](https://raw.githubusercontent.com/luisguve/strapi-ratings-client/main/error.PNG)
 
