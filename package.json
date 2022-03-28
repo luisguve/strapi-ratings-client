@@ -1,6 +1,6 @@
 {
   "name": "strapi-ratings-client",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "React components for Strapi Ratings plugin",
   "scripts": {
     "rollup": "rollup -c"

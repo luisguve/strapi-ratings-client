@@ -223,6 +223,7 @@ export const ReviewsProvider: FC<ProviderProps> = (props: ProviderProps) => {
       return false
     }
     try {
+      setErrorHelperMessage(null)
       if (!contentID) {
         throw new Error("No content ID")
       }
@@ -241,7 +242,6 @@ export const ReviewsProvider: FC<ProviderProps> = (props: ProviderProps) => {
       }
       // Add comment.
       addUserReview(comment, score, data.id)
-      setErrorHelperMessage(null)
       return true
     } catch(err) {
       console.log(err)
