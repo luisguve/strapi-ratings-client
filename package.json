@@ -1,5 +1,5 @@
 {
-  "name": "@coolstrapiplugins/strapi-ratings-client",
+  "name": "strapi-ratings-client",
   "version": "2.0.11",
   "description": "React components for Strapi Ratings plugin",
   "scripts": {
@@ -44,6 +44,5 @@
     "date-fns": "^2.28.0",
     "react-awesome-stars-rating": "^0.6.0"
   },
-  "repository": "https://github.com/coolstrapiplugins/strapi-ratings-client",
-  "homepage": "https://coolstrapiplugins.github.io"
+  "repository": "https://github.com/luisguve/strapi-ratings-client"
 }

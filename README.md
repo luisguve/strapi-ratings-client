@@ -1,6 +1,6 @@
 # Strapi Ratings Client
 
-Display reviews from the [Strapi Ratings plugin](https://npmjs.com/package/@coolstrapiplugins/strapi-plugin-ratings) easily, with components styled with [Bootstrap](https://getbootstrap.com).
+Display reviews from the [Strapi Ratings plugin](https://npmjs.com/package/strapi-plugin-ratings) easily, with components styled with [Bootstrap](https://getbootstrap.com).
 
 This component library fully supports Typescript.
 
@@ -8,7 +8,7 @@ This component library fully supports Typescript.
 
 This library requires **react ^17.0.2**, **react-dom ^17.0.2** **bootstrap ^5.1.3** and **@popperjs/core^2.11.2**.
 
-    npm install @coolstrapiplugins/strapi-ratings-client --save
+    npm install strapi-ratings-client --save
 
 ## Usage
 
@@ -26,7 +26,7 @@ import {
   ReviewsProvider,
   Reviews,
   ReviewForm
-} from "@coolstrapiplugins/strapi-ratings-client"
+} from "strapi-ratings-client"
  
 const STRAPI = "http://localhost:1337" // The address of your strapi backend instance
  
@@ -48,11 +48,11 @@ The only requirement is that the component that renders `Reviews` and `ReviewFor
 
 Here's how the interface looks like:
 
-![Comment sample](https://raw.githubusercontent.com/coolstrapiplugins/strapi-ratings-client/main/review.png)
+![Comment sample](https://raw.githubusercontent.com/luisguve/strapi-ratings-client/main/review.png)
 
 Updating the parameters for fetching and posting reviews is done through a `React.Context`:
 ```ts
-import { ReviewsConfigContext } from "@coolstrapiplugins/strapi-ratings-client"
+import { ReviewsConfigContext } from "strapi-ratings-client"
 ```
 
 `ReviewsConfigContext` returns two functions: `setUser` and `setContentID`
@@ -73,17 +73,17 @@ interface IUser {
 There are two more components that this library exports: `ReviewStats` and `ErrorBox`
 
 ```ts
-import { ErrorBox, ReviewStats } from "@coolstrapiplugins/strapi-ratings-client"
+import { ErrorBox, ReviewStats } from "strapi-ratings-client"
 ```
 
 `ReviewStats` displays the average score as well as the number of total reviews for a given content. This component requires a `slug: string` and `apiURL: string`. This component also doesn't need to be nested inside of `ReviewsProvider`.
 
-![Review Stats](https://raw.githubusercontent.com/coolstrapiplugins/strapi-ratings-client/main/stats.PNG)
+![Review Stats](https://raw.githubusercontent.com/luisguve/strapi-ratings-client/main/stats.PNG)
 
 `ErrorBox` displays an error message when fetching or posting reviews fail.
 
-![Comment error](https://raw.githubusercontent.com/coolstrapiplugins/strapi-ratings-client/main/error.PNG)
+![Comment error](https://raw.githubusercontent.com/luisguve/strapi-ratings-client/main/error.PNG)
 
 ## Full example
 
-For a full implementation of this library in a `React` project, check out [this repo](https://github.com/coolstrapiplugins/strapi-ratings-client-example)
+For a full implementation of this library in a `React` project, check out [this repo](https://github.com/luisguve/strapi-ratings-client-example)
