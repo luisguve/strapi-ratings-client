@@ -6,9 +6,11 @@ This component library fully supports Typescript.
 
 ## Installation
 
-This library requires **react ^17.0.2**, **react-dom ^17.0.2** **bootstrap ^5.1.3** and **@popperjs/core^2.11.2**.
+This library requires **react ^17.0.2**, **react-dom ^17.0.2**, **bootstrap ^5.1.3** and **@popperjs/core^2.11.2**.
 
-    npm install strapi-ratings-client --save
+```bash
+npm install strapi-ratings-client --save
+```
 
 ## Usage
 
